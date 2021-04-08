@@ -37,8 +37,9 @@
 	</div>
 	
 	<form th:action="@{/random}" method="post">
-    	<button style="margin-left: 170px" class="btn btn-md btn-primary" type="submit">Get Random Location!</button>
+    	<button class="btn btn-md btn-primary" name="submit" value="submit" type="submit">Get Random Location!</button>
   	</form>
+  	<p style="text-align: center" th:text = "${location.city}"></p>
   	<br>
   	
 
@@ -51,14 +52,11 @@
 	    		lng: parseFloat(/*[[${location.lng}]]*/) || -82.9988 
 	    	}; 
 	    
-	    	let city = null; 
+	    	let city = null;
 	    	let state =  null; 
 	    	
 	    	/*]]>*/
-	    	
-	
 
-	    
 	</script>
 	<script th:src="@{/custom.js}"></script>
 	<script

@@ -1,6 +1,8 @@
 package com.tts.mapsapp.controller;
 
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ public class MapController
 	@Autowired
 	MapService mapService; 
 	
+	Random random = new Random(); 
+	
 	@GetMapping("/")
 	public String getDefaultMap(Model model)
 	{
@@ -26,7 +30,7 @@ public class MapController
 	
 	@PostMapping("/")
 	public String getMapForLocation(Location location, Model model) 
-	{
+	{	
 	    mapService.addCoordinates(location);
 	    model.addAttribute(location);
 	    return "index.html";
@@ -35,11 +39,26 @@ public class MapController
 	@PostMapping("/random")
     public String getRandomLocation(Model model) 
 	{
+		// class help generating random numbers
+		
+		Location location = new Location(); 
+		double lat = (random.nextDouble() * 180.0) - 90.0; 
+		double lng =(random.nextDouble() * 360.0) - 180.0; 
+		location.setLat(String.valueOf(lat)); 
+		location.setLng(String.valueOf(lng)); 
+		mapService.addPlace(location);
+		model.addAttribute(location); 
+		return "index.html"; 
+		
+		/* My attempt w/research
+		
         Location location = mapService.getRandomLocation();
         
         model.addAttribute(location);
 
         return "index";
+        
+        */
     }
 
 }
